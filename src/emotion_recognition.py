@@ -1,21 +1,13 @@
-import streamlit as st
 import cv2
 import numpy as np
 from keras.models import load_model
 from keras.preprocessing.image import img_to_array
 
 # Load the pre-trained emotion recognition model
-model = load_model('model\emotion_model.h5')
+model = load_model('model/emotion_model.h5')
 
 # Emotion Labels (Ensure this matches the number of classes your model was trained on)
 emotion_labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
-
-# Set Streamlit configuration
-st.title("Real-Time Emotion Recognition")
-st.write("This application detects emotions in real-time from your webcam feed.")
-
-# Start the video stream
-video_capture = cv2.VideoCapture(0)
 
 # Function to detect faces
 def detect_faces(frame):
@@ -24,15 +16,20 @@ def detect_faces(frame):
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     return faces
 
-# Streamlit button to stop webcam
-if st.button("Stop Webcam"):
-    video_capture.release()
-    cv2.destroyAllWindows()
-    st.stop()
+# Start the video stream
+video_capture = cv2.VideoCapture(0)
+if not video_capture.isOpened():
+    print("Error: Could not open webcam.")
+    exit()
+
+print("Press 'q' to exit the application.")
 
 # Loop to capture frames from the webcam
-while video_capture.isOpened():
+while True:
     ret, frame = video_capture.read()
+    if not ret:
+        print("Error: Failed to capture frame.")
+        break
     
     # Detect faces in the frame
     faces = detect_faces(frame)
@@ -70,11 +67,13 @@ while video_capture.isOpened():
         cv2.putText(frame, label, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-    # Convert the frame to RGB format for Streamlit
-    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    # Display the frame in Streamlit
-    st.image(frame_rgb, channels="RGB", use_column_width=True)
+    # Display the frame in a window
+    cv2.imshow("Real-Time Emotion Recognition", frame)
 
-    # Break out of the loop if the Stop button is pressed
-    if not video_capture.isOpened():
+    # Press 'q' to quit the application
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
+# Release the video capture and close all OpenCV windows
+video_capture.release()
+cv2.destroyAllWindows()
