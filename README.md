@@ -45,9 +45,7 @@ Facial_Emotion_Recognition/
 ├── src/
 │   ├── venv/                            # Virtual environment for the project dependencies
 │   ├── emotion_recognition.py           # Main script for emotion recognition model through real-time 
-│   ├── face_detection.py                # Script for face detection using Haar cascades
-│   ├── video_detection.py               # Main script for emotion recognition model through video
-│   └── utils.py                         # Utility functions (e.g., preprocessing, helper functions)
+│   └── video_detection.py               # Main script for emotion recognition model through video
 ├── Videos/
 ├── model/
 │   ├── emotion_detection_model.h5                 # Pre-trained emotion recognition model (Keras model)
