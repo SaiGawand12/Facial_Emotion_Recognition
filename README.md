@@ -30,7 +30,7 @@ pip install -r requirements.txt
 
 ### 4. **Run the application for real - time emotion detection**
 ```bash
-python src/face_detection.py
+python src/emotion_recognition.py
 ```
 This will start the webcam and show the detected emotions in real-time.
 
