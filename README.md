@@ -28,23 +28,29 @@ venv\Scripts\activate     # For Windows
 pip install -r requirements.txt
 ```
 
-### 4. **Run the application**
+### 4. **Run the application for real - time emotion detection**
 ```bash
 python src/face_detection.py
 ```
 This will start the webcam and show the detected emotions in real-time.
 
+### 5. **Run the application for video based emotion detection**
+```bash
+python src/video_detection.py
+```
 
 ### **Project Structure**
 ```
 Facial_Emotion_Recognition/
 ├── src/
 │   ├── venv/                            # Virtual environment for the project dependencies
-│   ├── emotion_recognition.py           # Main script for emotion recognition model
+│   ├── emotion_recognition.py           # Main script for emotion recognition model through real-time 
 │   ├── face_detection.py                # Script for face detection using Haar cascades
+│   ├── video_detection.py               # Main script for emotion recognition model through video
 │   └── utils.py                         # Utility functions (e.g., preprocessing, helper functions)
+├── Videos/
 ├── model/
-│   ├── emotion_model.h5                 # Pre-trained emotion recognition model (Keras model)
+│   ├── emotion_detection_model.h5                 # Pre-trained emotion recognition model (Keras model)
 │   ├── haarcascade_frontalface_default.xml # Pre-trained face detection classifier
 ├── data/
 │   ├── fer2013.csv                      # Dataset containing images and labels (FER2013 dataset)
@@ -55,7 +61,7 @@ Facial_Emotion_Recognition/
 ## **Usage**
 - The webcam feed is used for real-time emotion recognition.
 - The model classifies emotions like **Happy**, **Sad**, **Angry**, **Surprise**, etc.
-- You can also pass custom images to the `emotion_recognition.py` for classification.
+- You can also use custom videos to the `video_detection.py` for emotion recognition through video.
 
 ## **Technologies**
 - **Python 3**
